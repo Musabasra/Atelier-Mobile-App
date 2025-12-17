@@ -3,7 +3,7 @@ import { Project, Sketch } from './types';
 import Gallery from './components/Gallery';
 import CanvasView from './components/CanvasView';
 
-// Mock Initial Data
+// Mock Initial Data - Updated with Burgundy vibes
 const INITIAL_PROJECTS: Project[] = [
   {
     id: 'p1',
@@ -51,7 +51,7 @@ const App: React.FC = () => {
     });
 
     setProjects(updatedProjects);
-    setCurrentProject(project); // Note: this uses the stale project reference, but ID matches
+    setCurrentProject(project); 
     setCurrentSketch(newSketch);
     setView('CANVAS');
   };
@@ -96,21 +96,26 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full bg-charcoal text-white font-sans selection:bg-gold selection:text-charcoal">
-      {view === 'GALLERY' ? (
-        <Gallery 
-          projects={projects} 
-          onOpenSketch={handleOpenSketch} 
-          onCreateSketch={handleCreateSketch} 
-        />
-      ) : (
-        <CanvasView 
-          sketch={currentSketch!} 
-          onBack={handleBackToGallery}
-          onSave={handleSaveSketch}
-          onSync={handleSyncSketch}
-        />
-      )}
+    /* FIXED: Changed h-full to min-h-screen to prevent black screen.
+      FIXED: Added direct Burgundy (#800020) and Charcoal (#121212) styles.
+    */
+    <div style={{ backgroundColor: '#121212', minHeight: '100vh', width: '100vw', color: 'white', overflow: 'hidden' }}>
+      <div className="w-full h-full font-sans selection:bg-[#800020] selection:text-white">
+        {view === 'GALLERY' ? (
+          <Gallery 
+            projects={projects} 
+            onOpenSketch={handleOpenSketch} 
+            onCreateSketch={handleCreateSketch} 
+          />
+        ) : (
+          <CanvasView 
+            sketch={currentSketch!} 
+            onBack={handleBackToGallery}
+            onSave={handleSaveSketch}
+            onSync={handleSyncSketch}
+          />
+        )}
+      </div>
     </div>
   );
 };
