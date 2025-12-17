@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Atelier Mobile: Creative Capture",
+  "description": "A high-end, mobile-first creative suite for sketching and project management.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
