@@ -1,0 +1,17 @@
+{
+  "short_name": "Atelier",
+  "name": "Atelier: AI Fashion Sketchpad",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3050/3050231.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#800020",
+  "background_color": "#121212",
+  "orientation": "portrait"
+}
