@@ -3,7 +3,7 @@ import { Project, Sketch } from './types';
 import Gallery from './components/Gallery';
 import CanvasView from './components/CanvasView';
 
-// Mock Initial Data - Updated with Burgundy vibes
+// Mock Initial Data
 const INITIAL_PROJECTS: Project[] = [
   {
     id: 'p1',
@@ -96,26 +96,34 @@ const App: React.FC = () => {
   };
 
   return (
-    /* FIXED: Changed h-full to min-h-screen to prevent black screen.
-      FIXED: Added direct Burgundy (#800020) and Charcoal (#121212) styles.
-    */
-    <div style={{ backgroundColor: '#121212', minHeight: '100vh', width: '100vw', color: 'white', overflow: 'hidden' }}>
-      <div className="w-full h-full font-sans selection:bg-[#800020] selection:text-white">
-        {view === 'GALLERY' ? (
-          <Gallery 
-            projects={projects} 
-            onOpenSketch={handleOpenSketch} 
-            onCreateSketch={handleCreateSketch} 
-          />
-        ) : (
+    <div 
+      // FIXED: Changed overflow-hidden to overflow-y-auto to allow scrolling
+      className="w-full flex flex-col font-sans selection:bg-[#D4AF37] selection:text-white overflow-y-auto" 
+      style={{ 
+        backgroundColor: '#121212', // Using Charcoal as base for better contrast
+        minHeight: '100vh', 
+        height: 'auto' // Allowed it to grow so we can scroll
+      }}
+    >
+      {view === 'GALLERY' ? (
+        <Gallery 
+          projects={projects} 
+          onOpenSketch={handleOpenSketch} 
+          onCreateSketch={handleCreateSketch} 
+        />
+      ) : (
+        // FIXED: Added safety check to prevent "undefined" errors on mobile refresh
+        currentSketch ? (
           <CanvasView 
-            sketch={currentSketch!} 
+            sketch={currentSketch} 
             onBack={handleBackToGallery}
             onSave={handleSaveSketch}
             onSync={handleSyncSketch}
           />
-        )}
-      </div>
+        ) : (
+          <div className="flex items-center justify-center h-screen text-gold">Loading Atelier...</div>
+        )
+      )}
     </div>
   );
 };
